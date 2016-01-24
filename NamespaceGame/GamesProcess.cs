@@ -9,7 +9,7 @@ using System.Windows;
 
 namespace GameTable.NamespaceGame
 {
-    class GamesProcess
+    public class GamesProcess
     {
         #region Поля класса
         /// <summary>
@@ -40,7 +40,25 @@ namespace GameTable.NamespaceGame
         /// <param name="CompPlayersQty"></param>
         public void GameStart(int CompPlayersQty)
         {
+            //Присвоение делегата для следующего хода
+            DelegatesData.HandlerPlayerIsMoreThanEnough =
+                new DelegatesData.PlayerIsMoreThanEnough(TurnComesToNextPlayer);
+
+            //Создание игрового стола
             BotPlayersCreate(CompPlayersQty);
+            GetStartCards();
+            PlayersPoolCreate();
+        }
+        /// <summary>
+        /// Создание следующей партии
+        /// </summary>
+        public void GameRestart() 
+        {
+            foreach (var item in ActivePlayersList)
+            {
+                item.cardsOnHand.NullifyDeck();
+            }
+            HumanPlayerQueueReCreate();
             GetStartCards();
             PlayersPoolCreate();
         }
@@ -58,6 +76,13 @@ namespace GameTable.NamespaceGame
             }
         }
         /// <summary>
+        /// Создание поля игрока - привязка к WPF
+        /// </summary>
+        public void PlayersPoolCreate()
+        {
+            DelegatesData.HandlerCreateTableViewForCurrentPlayer();
+        }
+        /// <summary>
         /// Ход ботов
         /// </summary>
         public void BotsAreMoving()
@@ -66,13 +91,14 @@ namespace GameTable.NamespaceGame
             var botsPlayers=ActivePlayersList.FindAll(item=>item is CompPlayer);
             //Проверка - есть ли боты
             if (botsPlayers.Count>0)
-            {//каждый бот делает свой ход
+            {
+                //каждый бот делает свой ход
                 foreach (CompPlayer pl in botsPlayers)
                 {
                     pl.CompsTurn();
                 }  
             }
-            
+            DelegatesData.HandlerWinnerPlayerShow(); 
         }
         /// <summary>
         /// Заполнение таблицы всех резальтатов игроков
@@ -86,7 +112,7 @@ namespace GameTable.NamespaceGame
         }
 
 
-        #region Winner
+        #region Выбор победителя
         /// <summary>
         /// Объявление победителей
         /// </summary>
@@ -164,16 +190,6 @@ namespace GameTable.NamespaceGame
             return winners;
         }
         #endregion
-       
-   
-
-        /// <summary>
-        /// Создание поля игрока - привязка к WPF
-        /// </summary>
-        public void PlayersPoolCreate()
-        {
-           
-        }
 
         #region Создание игроков
         /// <summary>
@@ -186,11 +202,32 @@ namespace GameTable.NamespaceGame
             ActivePlayersList.Add(new HumanPlayer(name));
 
             //Фиксация номера этого игрока и установка его как текущего (если других небыло)
-            HumanPlayerNumber.Enqueue(ActivePlayersList.Count - 1);
-            if(currentPlayerNumber<0)
-                currentPlayerNumber=HumanPlayerNumber.Dequeue();
+            HumanPlayerQueueFix(ActivePlayersList.Count - 1);
         }
 
+        /// <summary>
+        /// Фиксация номера игрока человека
+        /// </summary>
+        public void HumanPlayerQueueFix(int plNumber)
+        {
+            HumanPlayerNumber.Enqueue(plNumber);
+            if (HumanPlayerNumber.Count == 1)
+                currentPlayerNumber = HumanPlayerNumber.Peek();
+        }
+        /// <summary>
+        /// Пересоздание списка номеров игроков-людей
+        /// </summary>
+        public void HumanPlayerQueueReCreate()
+        {
+            for (int i = 0; i < ActivePlayersList.Count; i++)
+            {
+                if (ActivePlayersList[i] is HumanPlayer)
+                {
+                    HumanPlayerQueueFix(i);
+                }
+            }         
+           
+        }
         /// <summary>
         /// Добавление дилера и ботов в игру
         /// </summary>
@@ -215,11 +252,21 @@ namespace GameTable.NamespaceGame
         #region Действия игрока-человека
 
         /// <summary>
+        /// Возврат играющего игрока
+        /// </summary>
+        /// <returns>Текущий игрок</returns>
+        public HumanPlayer GetCurrentHumanPlayer()
+        {
+            return ActivePlayersList[currentPlayerNumber] as HumanPlayer;
+        }
+        /// <summary>
         /// Игрок берет новую карту
         /// </summary>
         public void HumanPlayerGetsCard()
         {
-            ActivePlayersList[currentPlayerNumber].AchievingOfCard();
+            
+                ActivePlayersList[currentPlayerNumber].AchievingOfCard();
+           
         }
 
         /// <summary>
@@ -229,20 +276,25 @@ namespace GameTable.NamespaceGame
         {
             //игрок заканчивает свой ход
             ActivePlayersList[currentPlayerNumber].PlayerStopsTurn();
+        }
 
+        /// <summary>
+        /// Переход хода к следующему игроку
+        /// </summary>
+        public void TurnComesToNextPlayer()
+        {
             //Назначение следующего активного игрока, создание его игрового стола
             if (HumanPlayerNumber.Count > 0)
             {
                 currentPlayerNumber = HumanPlayerNumber.Dequeue();
                 PlayersPoolCreate();
             }
-                //Если игроков нет - играют боты
+            //Если игроков нет - играют боты
             else
             {
-                BotsAreMoning();
+                BotsAreMoving();
             }
         }
-
         #endregion
 
     }

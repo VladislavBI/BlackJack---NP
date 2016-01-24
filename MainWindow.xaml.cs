@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using GameTable.NamespaceGame;
 
 namespace GameTable
 {
@@ -20,10 +21,18 @@ namespace GameTable
     /// </summary>
     public partial class MainWindow : Window
     {
+        GamesProcess game = new GamesProcess();
         public MainWindow()
         {
             InitializeComponent();
             
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            CreateNewHumanPlayer cr = new CreateNewHumanPlayer(game);
+            cr.Show();
+            this.Close();
         }
     }
 }

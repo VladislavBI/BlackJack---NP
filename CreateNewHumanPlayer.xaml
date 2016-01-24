@@ -3,6 +3,9 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="CreateNewHumanPlayer" Height="300" Width="300">
     <Grid>
-        
+        <TextBox Name="TextBoxName"  HorizontalAlignment="Left" Height="23" Margin="117,62,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+        <Label Content="Имя игрока" HorizontalAlignment="Left" Margin="31,62,0,0" VerticalAlignment="Top"/>
+        <Button Content="Создать игрока" HorizontalAlignment="Left" Margin="117,173,0,0" VerticalAlignment="Top" Width="101" Click="Button_Click"/>
+
     </Grid>
 </Window>

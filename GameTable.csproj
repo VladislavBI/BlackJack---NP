@@ -54,6 +54,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="CreateNewHumanPlayer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GameTableWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -65,7 +73,13 @@
     <Compile Include="CardDeck\CardFactory.cs" />
     <Compile Include="CardDeck\CardDeck.cs" />
     <Compile Include="CardGeneralInfoCreator.cs" />
+    <Compile Include="CreateNewHumanPlayer.xaml.cs">
+      <DependentUpon>CreateNewHumanPlayer.xaml</DependentUpon>
+    </Compile>
     <Compile Include="DelegatesData.cs" />
+    <Compile Include="GameTableWindow.xaml.cs">
+      <DependentUpon>GameTableWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="NamespaceGame\GamesProcess.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>

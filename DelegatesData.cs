@@ -13,11 +13,41 @@ namespace GameTable
         /// </summary>
         /// <returns>Карта</returns>
         public delegate CardDeck.CardFactory GetingCardFromGenDeck();
-
         /// <summary>
         /// Экземляр делегата GetingCardFromGenDeck: 
         /// взять карту из общей колоды
         /// </summary>
         public static GetingCardFromGenDeck HandlerGetingCardFromGenDeck;
+
+
+        /// <summary>
+        /// Игрок заканчивает ход - делегат
+        /// </summary>
+        public delegate void PlayerIsMoreThanEnough();
+        /// <summary>
+        /// Экземляр делегата PlayerIsMoreThanEnough: 
+        /// игрок заканчивает ход
+        /// </summary>
+        public static PlayerIsMoreThanEnough HandlerPlayerIsMoreThanEnough;
+
+        /// <summary>
+        /// Создание внешнего вида стола для игрока - делегат
+        /// </summary>
+        public delegate void CreateTableViewForCurrentPlayer();
+        /// <summary>
+        /// Экземляр делегата CreateTableViewForCurrentPlayer: 
+        /// создание внешнего вида стола для игрока
+        /// </summary>
+        public static CreateTableViewForCurrentPlayer HandlerCreateTableViewForCurrentPlayer;
+
+        /// <summary>
+        /// Показать победителя - делегат
+        /// </summary>
+        public delegate void WinnerPlayerShow();
+        /// <summary>
+        /// Экземляр делегата WinnerPlayerShow: 
+        /// показать победителя
+        /// </summary>
+        public static WinnerPlayerShow HandlerWinnerPlayerShow;
     }
 }

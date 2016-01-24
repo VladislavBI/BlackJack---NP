@@ -22,6 +22,9 @@ namespace GameTable
     /// </summary>
     static class CardGeneralInfoCreator
     {
+        /// <summary>
+        /// Список имен ботов
+        /// </summary>
         static public List<string> botsName = new List<string>()
         {
             "Ваня",
@@ -33,7 +36,57 @@ namespace GameTable
             "Катя",
             "Лена"
         };
+        /// <summary>
+        /// Нормальный вид иерархии карты
+        /// </summary>
+        static Dictionary<CardHierarchy, string> CardHierarchyNormalView =
+            new Dictionary<CardHierarchy, string>()
+        {
+            {CardHierarchy.C2, "2"},
+            {CardHierarchy.C3, "3"},
+            {CardHierarchy.C4, "4"},
+            {CardHierarchy.C5, "5"},
+            {CardHierarchy.C6, "6"},
+            {CardHierarchy.C7, "7"},
+            {CardHierarchy.C8, "8"},
+            {CardHierarchy.C9, "9"},
+            {CardHierarchy.C10, "10"},
+            {CardHierarchy.Jack, "J"},
+            {CardHierarchy.Queen, "Q"},
+            {CardHierarchy.King, "K"},
+            {CardHierarchy.Ace, "A"}
+        };
+        /// <summary>
+        /// Возврат нормального вида иерархии карты
+        /// </summary>
+        /// <param name="h">иерархия карты</param>
+        /// <returns>Нормальный вид</returns>
+        public static string GetHierarchyNormalView(CardHierarchy h)
+        {
+            return CardHierarchyNormalView[h];
+        }
+       
+        /// <summary>
+        /// Нормальный вид масти карты
+        /// </summary>
+        static Dictionary<CardSuit, string> CardSuitNormalView =
+           new Dictionary<CardSuit, string>()
+        {
+            {CardSuit.clubs, "♣"},
+            {CardSuit.diamonds, "♦"},
+            {CardSuit.hearts, "♥"},
+            {CardSuit.pikes, "♠"},
 
+        };
+        /// <summary>
+        /// Возврат нормального вида масти карты
+        /// </summary>
+        /// <param name="h">масть карты</param>
+        /// <returns>Нормальный вид</returns>
+        public static string GetSuitNormalView(CardSuit h)
+        {
+            return CardSuitNormalView[h];
+        }
 
         /// <summary>
         /// количество очков, которые дает карта
@@ -51,7 +104,7 @@ namespace GameTable
         {CardHierarchy.C10, 10},
         {CardHierarchy.Jack, 10},
         {CardHierarchy.Queen, 10},
-        {CardHierarchy.King, 10},
+        {CardHierarchy.King, 10}
         };
 
 

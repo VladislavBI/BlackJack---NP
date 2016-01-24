@@ -51,6 +51,12 @@ namespace GameTable.CardDeck
             thisCardHierarchy=hierarchy;
             thisCardSuit=suit;
 	    }
+
+        public override string ToString()
+        {
+            return CardGeneralInfoCreator.GetSuitNormalView(thisCardSuit) +
+                CardGeneralInfoCreator.GetHierarchyNormalView(thisCardHierarchy);
+        }
     }
 
     /// <summary>

@@ -26,6 +26,7 @@ namespace GameTable.CardDeck
     {
         public GeneralDeck ()
 	    {
+            gameDeck = new Stack<CardFactory>();
             //создание колоды
             CreateDeck();
             ShufflingDeck();
@@ -78,11 +79,16 @@ namespace GameTable.CardDeck
         }
     }
     
+
     /// <summary>
     /// Колода конкретных игроков (в том числе и дилера)
     /// </summary>
     public class PlayersDeck:CardDeck
     {
+        public PlayersDeck()
+        {
+            gameDeck = new Stack<CardFactory>();
+        }
         /// <summary>
         /// Наличие туза, если true - другой вариант подсчета очков
         /// </summary>

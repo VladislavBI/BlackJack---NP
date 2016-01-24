@@ -42,10 +42,12 @@ namespace GameTable.NamespacePlayers
         /// <summary>
         /// Игрок заканчивает свой ход
         /// </summary>
-        public void PlayerStopsTurn()
+        public virtual void PlayerStopsTurn()
         {
             playerIsStillIngame = false;
+            DelegatesData.HandlerPlayerIsMoreThanEnough();
             playerSaysThatHeIsEnough();
+
         }
 
         #region Фразы игрока
@@ -81,15 +83,18 @@ namespace GameTable.NamespacePlayers
             playerAttempsToGetAnotherCard();
             //Игрок берет карту
             PutCardInDeck(GettingCardFromGeneralDeck());
+            //Добавление карты на стол
+            DelegatesData.HandlerCreateTableViewForCurrentPlayer();
             //Результаты хода
             TurnsResults();
+
         }
 
         /// <summary>
         /// Взятие карты из общей колоды с помощью делегата.
         /// </summary>
         /// <returns>Карта из колоды</returns>
-        CardDeck.CardFactory GettingCardFromGeneralDeck()
+        protected CardDeck.CardFactory GettingCardFromGeneralDeck()
         {
             return DelegatesData.HandlerGetingCardFromGenDeck(); ;
         }
@@ -112,6 +117,7 @@ namespace GameTable.NamespacePlayers
             {
                 PlayerStopsTurn();
             }
+           
         }
 
         /// <summary>
@@ -149,7 +155,7 @@ namespace GameTable.NamespacePlayers
         {
             //ходить, запас есть
             if (DecisionToGetAnotherCard())
-                AchievingOfCard();
+                PutCardInDeck(GettingCardFromGeneralDeck());
                 
             //закончить ход, запаса нет
             else
@@ -163,7 +169,7 @@ namespace GameTable.NamespacePlayers
         /// <returns>Решение бота</returns>
         bool DecisionToGetAnotherCard()
         {
-            if (GetPermissibleValue() <= cardsOnHand.GetTotalPoints())
+            if (GetPermissibleValue() >= cardsOnHand.GetTotalPoints())
                 return true;
             else
                 return false;
@@ -178,6 +184,11 @@ namespace GameTable.NamespacePlayers
             Random r = new Random();
             return r.Next(12, 17);
         } 
+       /// <summary>
+       /// Бот заканчивает ход - ануляются дествия метода для игрока
+       /// </summary>
+        public override void PlayerStopsTurn()
+        {}
         #endregion
     }
 
