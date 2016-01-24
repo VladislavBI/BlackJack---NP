@@ -22,10 +22,17 @@ namespace GameTable
     /// </summary>
     static class CardGeneralInfoCreator
     {
-        static public List<string> botsName=new List<string>()
+        static public List<string> botsName = new List<string>()
         {
-
-        }
+            "Ваня",
+            "Вася",
+            "Петя",
+            "Женя",
+            "Даша",
+            "Маша",
+            "Катя",
+            "Лена"
+        };
 
 
         /// <summary>

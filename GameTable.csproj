@@ -63,15 +63,17 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="CardDeck\CardFactory.cs" />
-    <Compile Include="CardDeck\Deck.cs" />
+    <Compile Include="CardDeck\CardDeck.cs" />
     <Compile Include="CardGeneralInfoCreator.cs" />
+    <Compile Include="DelegatesData.cs" />
+    <Compile Include="NamespaceGame\GamesProcess.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Players\Player.cs" />
+    <Compile Include="NamespacePlayersPlayers\Player.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
