@@ -9,7 +9,7 @@
         <Image Name="ImagePlayersPhoto" HorizontalAlignment="Left" Height="67" Margin="10,31,0,0" VerticalAlignment="Top" Width="61"/>
         <Button Name="ButtonGetCard" Content="Взять карту" HorizontalAlignment="Left" Margin="10,256,0,0" VerticalAlignment="Top" Width="75" Click="ButtonGetCard_Click"/>
         <Button Name="ButtonPass" Content="Конец хода" HorizontalAlignment="Left" Margin="207,256,0,0" VerticalAlignment="Top" Width="75" Click="ButtonPass_Click"/>
-        <Button Content="Button" HorizontalAlignment="Left" Margin="98,99,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
+        <Button Content="Button" HorizontalAlignment="Left" Margin="133,89,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
 
     </Grid>
 </Window>

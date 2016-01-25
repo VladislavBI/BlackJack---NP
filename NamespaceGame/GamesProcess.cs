@@ -9,8 +9,7 @@ using System.Windows;
 
 namespace GameTable.NamespaceGame
 {
-    abstract class BaseGame { }
-    public class GamesProcess:BaseGame
+    public class GamesProcess
     {
         #region Поля класса
         /// <summary>
@@ -35,7 +34,7 @@ namespace GameTable.NamespaceGame
         GeneralDeck genDeck;
         #endregion
 
-        #region Создание стола
+        #region создание стола
         /// <summary>
         /// Действия в начале игры
         /// </summary>
@@ -43,16 +42,14 @@ namespace GameTable.NamespaceGame
         public void GameStart(int CompPlayersQty)
         {
             CreateNewDeck();
-            
             //Присвоение делегата для следующего хода
             DelegatesData.HandlerPlayerIsMoreThanEnough =
                 new DelegatesData.PlayerIsMoreThanEnough(TurnComesToNextPlayer);
 
             //Создание игрового стола
             BotPlayersCreate(CompPlayersQty);
-            GameStartsCommon();
-            
-
+            GetStartCards();
+            PlayersPoolCreate();
         }
         /// <summary>
         /// Создание следующей партии
@@ -64,23 +61,9 @@ namespace GameTable.NamespaceGame
                 item.cardsOnHand.NullifyDeck();
             }
             HumanPlayerQueueReCreate();
-            GameStartsCommon();
-
-        }
-
-        /// <summary>
-        /// Общее в двух классах-началах игры
-        /// </summary>
-        void GameStartsCommon()
-        {
-            //Изменение состояния кнопок
-            DelegatesData.HandlerTableButtonsIsEnanbleChange(true);
             GetStartCards();
             PlayersPoolCreate();
         }
-        /// <summary>
-        /// Создание новой колоды
-        /// </summary>
         public void CreateNewDeck()
         {
             genDeck = new GeneralDeck();
@@ -301,7 +284,6 @@ namespace GameTable.NamespaceGame
             //Если игроков нет - играют боты
             else
             {
-                DelegatesData.HandlerTableButtonsIsEnanbleChange(false);
                 BotsAreMoving();
             }
         }
@@ -324,20 +306,6 @@ namespace GameTable.NamespaceGame
                 }
             }
             DelegatesData.HandlerWinnerPlayerShow();
-        }
-
-        /// <summary>
-        /// Возврат списка имен всех игроков
-        /// </summary>
-        /// <returns>Список имен игроков</returns>
-        public List<String> GetActivePlayersList()
-        {
-            List<string> temp=new List<string>();
-            foreach (var pl in ActivePlayersList)
-	        {
-		        temp.Add(pl.playersName);
-	        }
-            return temp;
         }
     }
 }

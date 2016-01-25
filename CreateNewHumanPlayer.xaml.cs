@@ -34,7 +34,7 @@ namespace GameTable
 
         void GoToTable()
         {
-            GameTableWindow table = new GameTableWindow(game, 1);
+            GameTableWindow table = new GameTableWindow(game);
             table.Show();
             this.Close();
         }

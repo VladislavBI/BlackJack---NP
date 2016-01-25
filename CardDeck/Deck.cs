@@ -10,7 +10,7 @@ namespace GameTable.CardDeck
     /// <summary>
     /// Абстрактный класс для колоды карт
     /// </summary>
-    public abstract class CardDeck
+    abstract class Deck
     {
         /// <summary>
         /// Игровая колода карт
@@ -22,19 +22,13 @@ namespace GameTable.CardDeck
     /// <summary>
     /// Общая колода карт
     /// </summary>
-    public class GeneralDeck: CardDeck
+    public class GeneralDeck: Deck
     {
         public GeneralDeck ()
 	    {
-            gameDeck = new Stack<CardFactory>();
-            //создание колоды
             CreateDeck();
             ShufflingDeck();
-
-            //создание делегата для вытягивания карты
-            CreateGetCardDelegate();
 	    }
-
 
         /// <summary>
         /// Создает новую колоду всех карт
@@ -69,26 +63,13 @@ namespace GameTable.CardDeck
         {
             return gameDeck.Pop();
         }
-
-        /// <summary>
-        /// Создание делегата для вызова карты
-        /// </summary>
-        public void CreateGetCardDelegate()
-        {
-            DelegatesData.HandlerGetingCardFromGenDeck = new DelegatesData.GetingCardFromGenDeck(GetCard);
-        }
     }
     
-
     /// <summary>
     /// Колода конкретных игроков (в том числе и дилера)
     /// </summary>
-    public class PlayersDeck:CardDeck
+    public class PlayersDeck:Deck
     {
-        public PlayersDeck()
-        {
-            gameDeck = new Stack<CardFactory>();
-        }
         /// <summary>
         /// Наличие туза, если true - другой вариант подсчета очков
         /// </summary>

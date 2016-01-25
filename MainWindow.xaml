@@ -4,7 +4,6 @@
         Title="MainWindow" Height="350" Width="525">
     <Grid>
         <Button Content="Новая игра" HorizontalAlignment="Left" Margin="148,41,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
-        <Button Content="Дуэль" HorizontalAlignment="Left" Margin="148,66,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click_1"/>
 
     </Grid>
 </Window>

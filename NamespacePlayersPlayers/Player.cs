@@ -215,9 +215,8 @@ namespace GameTable.NamespacePlayers
         /// <param name="name">Имя игрока</param>
         public HumanPlayer(string name)
         {
-            Random r = new Random();
             if (name == "")
-                playersName = "Безымянный"+r.Next(1, 999999).ToString(); 
+                playersName = "Безымянный"; 
             else
                 playersName = name;
         }
