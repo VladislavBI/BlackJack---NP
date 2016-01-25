@@ -21,18 +21,26 @@ namespace GameTable
     public partial class GameTableWindow : Window
     {
         GamesProcess game;
-        public GameTableWindow(GamesProcess game)
+        public GameTableWindow(GamesProcess game, int botsQuantity)
         {
             InitializeComponent();
-            DelegatesData.HandlerCreateTableViewForCurrentPlayer =
-                new DelegatesData.CreateTableViewForCurrentPlayer(ViewForPlayerCreating);
-            DelegatesData.HandlerWinnerPlayerShow = 
-                new DelegatesData.WinnerPlayerShow(ShowWinner);
+            DelegateCreation();
             this.game = game;
-            game.GameStart(1);
+            game.GameStart(botsQuantity);
         }
 
-
+        /// <summary>
+        /// Создание делегатов
+        /// </summary>
+        void DelegateCreation()
+        {
+            DelegatesData.HandlerCreateTableViewForCurrentPlayer =
+               new DelegatesData.CreateTableViewForCurrentPlayer(ViewForPlayerCreating);
+            DelegatesData.HandlerWinnerPlayerShow =
+                new DelegatesData.WinnerPlayerShow(ShowWinner);
+            DelegatesData.HandlerTableButtonsIsEnanbleChange =
+                new DelegatesData.TableButtonsIsEnanbleChange(ButtonsAvailableChange);
+        }
 
         #region Внешний вид стола
         /// <summary>
@@ -77,6 +85,23 @@ namespace GameTable
                 StackplayersCard.Children.Add(cardGrid);
                 cardGrid.Children.Add(cardBlock);
 
+            }
+        }
+        /// <summary>
+        /// Изменение состояния игровых кнопок
+        /// </summary>
+        /// <param name="gameCont">Игра продолжается?</param>
+        public void ButtonsAvailableChange(bool gameCont)
+        {
+            if (gameCont)
+            {
+                ButtonGetCard.IsEnabled = true;
+                ButtonPass.IsEnabled = true;
+            }
+            else
+            {
+                ButtonGetCard.IsEnabled = false;
+                ButtonPass.IsEnabled = false;
             }
         }
         #endregion

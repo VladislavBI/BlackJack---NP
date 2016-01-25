@@ -49,5 +49,16 @@ namespace GameTable
         /// показать победителя
         /// </summary>
         public static WinnerPlayerShow HandlerWinnerPlayerShow;
+
+        /// <summary>
+        /// Изменение состояния кнопок взять карту/пасс - делегат
+        /// </summary>
+        /// <param name="b">Игра идет?</param>
+        public delegate void TableButtonsIsEnanbleChange(bool b);
+        /// <summary>
+        /// Экземляр делегата TableButtonsIsEnanbleChange: 
+        /// изменение состояния кнопок взять карту/пасс
+        /// </summary>
+        public static TableButtonsIsEnanbleChange HandlerTableButtonsIsEnanbleChange;
     }
 }
