@@ -34,5 +34,12 @@ namespace GameTable
             cr.Show();
             this.Close();
         }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            OnlineCreateNewPlayer cr = new OnlineCreateNewPlayer(game);
+            cr.Show();
+            this.Close();
+        }
     }
 }

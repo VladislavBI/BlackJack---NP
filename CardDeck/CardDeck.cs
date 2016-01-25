@@ -168,7 +168,7 @@ namespace GameTable.CardDeck
 
             //Подсчет очков и возврат наиболее подходящего количества очков
             return points = points + 11 + AcesInTheDeck.Count - 1 <= 21
-                ? points + 11 + AcesInTheDeck.Count - 1 : points + AcesInTheDeck.Count;
+                ?  11 + AcesInTheDeck.Count - 1 : AcesInTheDeck.Count;
         }
 
         #endregion

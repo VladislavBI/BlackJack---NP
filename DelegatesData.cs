@@ -49,5 +49,31 @@ namespace GameTable
         /// показать победителя
         /// </summary>
         public static WinnerPlayerShow HandlerWinnerPlayerShow;
+
+        /// <summary>
+        /// Изменение состояния кнопок взять карту/пасс - делегат
+        /// </summary>
+        /// <param name="b">Игра идет?</param>
+        public delegate void TableButtonsIsEnanbleChange(bool b);
+        /// <summary>
+        /// Экземляр делегата TableButtonsIsEnanbleChange: 
+        /// изменение состояния кнопок взять карту/пасс
+        /// </summary>
+        public static TableButtonsIsEnanbleChange HandlerTableButtonsIsEnanbleChange;
+
+
+
+        #region Online workers
+        /// <summary>
+        /// Измение вида окна сервера при изменении его статуса
+        /// </summary>
+        /// <param name="b">Сервер работает?</param>
+        public delegate void ServerStatusChangeView(bool b);
+        /// <summary>
+        /// Экземляр делегата ServerStatusChangeView: 
+        /// измение вида окна сервера при изменении его статуса
+        /// </summary>
+        public static ServerStatusChangeView HandlerServerStatusChangeView;
+        #endregion
     }
 }
