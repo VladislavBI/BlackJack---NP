@@ -44,9 +44,9 @@ namespace GameTable.NamespacePlayers
         /// </summary>
         public virtual void PlayerStopsTurn()
         {
+            playerSaysThatHeIsEnough();
             playerIsStillIngame = false;
             DelegatesData.HandlerPlayerIsMoreThanEnough();
-            playerSaysThatHeIsEnough();
 
         }
 

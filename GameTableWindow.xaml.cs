@@ -43,7 +43,6 @@ namespace GameTable
             HumanPlayer curPlayer = game.GetCurrentHumanPlayer();
             NonCardViewCreate(curPlayer);
             CardViewCreate(curPlayer);
-
         }
         /// <summary>
         /// Внешний вид стола без учета карт
@@ -100,6 +99,8 @@ namespace GameTable
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            //Создание новой колоды
+            game.CreateNewDeck();
             game.GameRestart();
         }
         

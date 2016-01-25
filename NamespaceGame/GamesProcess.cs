@@ -31,15 +31,17 @@ namespace GameTable.NamespaceGame
         /// <summary>
         /// Игровая колода
         /// </summary>
-        GeneralDeck genDeck = new GeneralDeck();
+        GeneralDeck genDeck;
         #endregion
-     
+
+        #region создание стола
         /// <summary>
         /// Действия в начале игры
         /// </summary>
         /// <param name="CompPlayersQty"></param>
         public void GameStart(int CompPlayersQty)
         {
+            CreateNewDeck();
             //Присвоение делегата для следующего хода
             DelegatesData.HandlerPlayerIsMoreThanEnough =
                 new DelegatesData.PlayerIsMoreThanEnough(TurnComesToNextPlayer);
@@ -62,6 +64,10 @@ namespace GameTable.NamespaceGame
             GetStartCards();
             PlayersPoolCreate();
         }
+        public void CreateNewDeck()
+        {
+            genDeck = new GeneralDeck();
+        }
         /// <summary>
         /// Казино раздает по 2 карты всем игрокам
         /// </summary>
@@ -82,26 +88,9 @@ namespace GameTable.NamespaceGame
         {
             DelegatesData.HandlerCreateTableViewForCurrentPlayer();
         }
+   
         /// <summary>
-        /// Ход ботов
-        /// </summary>
-        public void BotsAreMoving()
-        {
-            //список всех ботов за столом
-            var botsPlayers=ActivePlayersList.FindAll(item=>item is CompPlayer);
-            //Проверка - есть ли боты
-            if (botsPlayers.Count>0)
-            {
-                //каждый бот делает свой ход
-                foreach (CompPlayer pl in botsPlayers)
-                {
-                    pl.CompsTurn();
-                }  
-            }
-            DelegatesData.HandlerWinnerPlayerShow(); 
-        }
-        /// <summary>
-        /// Заполнение таблицы всех резальтатов игроков
+        /// Заполнение таблицы всех результатов игроков
         /// </summary>
         public void ResultsCalculating()
         {
@@ -110,7 +99,11 @@ namespace GameTable.NamespaceGame
                 scoreTable.Add(i, ActivePlayersList[i].GetPlayersPoints());
 			} 
         }
-
+        /// <summary>
+        /// Создание новой общей колоды карт
+        /// </summary>
+       
+        #endregion
 
         #region Выбор победителя
         /// <summary>
@@ -219,6 +212,7 @@ namespace GameTable.NamespaceGame
         /// </summary>
         public void HumanPlayerQueueReCreate()
         {
+            HumanPlayerNumber.Clear();
             for (int i = 0; i < ActivePlayersList.Count; i++)
             {
                 if (ActivePlayersList[i] is HumanPlayer)
@@ -268,7 +262,6 @@ namespace GameTable.NamespaceGame
                 ActivePlayersList[currentPlayerNumber].AchievingOfCard();
            
         }
-
         /// <summary>
         /// Игрок заканчивает ход
         /// </summary>
@@ -277,16 +270,15 @@ namespace GameTable.NamespaceGame
             //игрок заканчивает свой ход
             ActivePlayersList[currentPlayerNumber].PlayerStopsTurn();
         }
-
         /// <summary>
         /// Переход хода к следующему игроку
         /// </summary>
         public void TurnComesToNextPlayer()
         {
+            currentPlayerNumber = HumanPlayerNumber.Dequeue();
             //Назначение следующего активного игрока, создание его игрового стола
-            if (HumanPlayerNumber.Count > 0)
+            if (HumanPlayerNumber.Count != 0)
             {
-                currentPlayerNumber = HumanPlayerNumber.Dequeue();
                 PlayersPoolCreate();
             }
             //Если игроков нет - играют боты
@@ -297,5 +289,23 @@ namespace GameTable.NamespaceGame
         }
         #endregion
 
+        /// <summary>
+        /// Ход ботов
+        /// </summary>
+        public void BotsAreMoving()
+        {
+            //список всех ботов за столом
+            var botsPlayers = ActivePlayersList.FindAll(item => item is CompPlayer);
+            //Проверка - есть ли боты
+            if (botsPlayers.Count > 0)
+            {
+                //каждый бот делает свой ход
+                foreach (CompPlayer pl in botsPlayers)
+                {
+                    pl.CompsTurn();
+                }
+            }
+            DelegatesData.HandlerWinnerPlayerShow();
+        }
     }
 }
