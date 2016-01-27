@@ -60,9 +60,10 @@ namespace GameTable.OnlineGame
             sender = new UdpClient(this.myPort);
             this.remoteIPAddress = IPAddress.Parse(remoteIpAddress);
             endPoint = new IPEndPoint(this.remoteIPAddress, this.remotePort);
-
-
             myPlayer = new HumanPlayer(name);
+
+            DelegatesData.HandlerPlayerIsMoreThanEnough =
+                new DelegatesData.PlayerIsMoreThanEnough(TurnComesToNextPlayer);
 
             try
             {
@@ -128,22 +129,27 @@ namespace GameTable.OnlineGame
                    // MessageBox.Show(_bufer.Length + " " + _stream.Length);
 
                     _send = (SendingData)_sendDetailsSerializer.Deserialize(_stream);
-
-                    switch (_send.messageCommand)
+                    string[] detailedMessageCommand = _send.messageCommand.Split('@');
+                    
+                    switch (detailedMessageCommand[0])
                     {
-                        case "replace@":
+                        case "replace":
                             DelegatesData.HandlerPlayersListRefresh(_send);
 
                             break;
-                        case "startGame@":
+                        case "startGame":
                             DelegatesData.HandlerGameTableOpen();
                             break;
 
-                        case "newCard@":
+                        case "newCard":
                             PlayerRecieveStartCards(_send);
                             break;
-                        case "playersTurn@":
+                        case "playersTurn":
                             DelegatesData.HandlerTableButtonsIsEnanbleChange(true);
+                            break;
+
+                        case "winner":
+                            AnnouncementOfWinners(detailedMessageCommand[1], _send.scoreTableSend);
                             break;
                         /*case "newCard":
                             Dispatcher.BeginInvoke(new Action(delegate
@@ -181,22 +187,35 @@ namespace GameTable.OnlineGame
         public override void HumanPlayerGetsCard()
         {
             SendMessage("hit@");
+            
         }
 
         public override void HumanStopPlaying()
         {
-            throw new NotImplementedException();
+            DelegatesData.HandlerTableButtonsIsEnanbleChange(false);
+            SendMessage("stop@"+myPlayer.playersName+"@"+myPlayer.GetPlayersPoints().ToString());
         }
 
         public override void TurnComesToNextPlayer()
-        {
-            throw new NotImplementedException();
+        { 
+            HumanStopPlaying();
         }
 
-        public override void AnnouncementOfWinners()
+        public void AnnouncementOfWinners(string s, List<string> sl)
         {
-            throw new NotImplementedException();
+            string winner="";
+
+            foreach (string str in sl)
+            {
+                winner += str;
+            }
+            winner=s;
+            
+            DelegatesData.HandlerGameTableStatisticTB(winner);
         }
+      
+        public override void AnnouncementOfWinners() { } 
+        
 
         public override void GameStart(int CompPlayersQty)
         {
@@ -240,7 +259,12 @@ namespace GameTable.OnlineGame
                 OnePointCard oc = new OnePointCard(s.card.GetHierarchy(), s.card.GetSuit());
                 myPlayer.cardsOnHand.AddCardToDeck(oc);
             }
-           
+
+            if (myPlayer.GetPlayersPoints() >= 21)
+            {
+                HumanStopPlaying();
+            }
+
             PlayersPoolCreate();
         }
         public override void CreateNewDeck()

@@ -25,7 +25,11 @@ namespace GameTable
         {
             InitializeComponent();
             if (game.GetType() == typeof(OnlineGame.OnlineGame))
+            {
                 ButtonsAvailableChange(false);
+
+            }
+                
             DelegateCreation();
             this.game = game;
             game.GameStart(botsQuantity);
@@ -42,6 +46,7 @@ namespace GameTable
                 new DelegatesData.WinnerPlayerShow(ShowWinner);
             DelegatesData.HandlerTableButtonsIsEnanbleChange =
                 new DelegatesData.TableButtonsIsEnanbleChange(ButtonsAvailableChange);
+            DelegatesData.HandlerGameTableStatisticTB = new DelegatesData.GameTableStatisticTB(ChangeStatistic);
         }
 
         #region Внешний вид стола
@@ -144,7 +149,14 @@ namespace GameTable
             game.GameRestart();
         }
 
-
+        public void ChangeStatistic(string text)
+        {
+            Dispatcher.BeginInvoke(new Action(delegate
+            {
+                TextBoxStatistic.Text += text + "\n";
+            }));
+            
+        }
 
 
 

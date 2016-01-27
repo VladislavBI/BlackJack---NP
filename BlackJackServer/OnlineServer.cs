@@ -93,6 +93,10 @@ namespace BlackJackServer
         /// </summary>
         ServerStatus sStatus = ServerStatus.Stopped;
         Dictionary<string, int> scoresTable = new Dictionary<string, int>();
+        /// <summary>
+        /// Проверка на выдачу начальных карт
+        /// </summary>
+        bool cardsGetted = false;
 
         #region Открытие сервера
         /// <summary>
@@ -321,9 +325,10 @@ namespace BlackJackServer
             string winners="winner@";
             winners+=ChooseWinner();
             List<string> winList = new List<string>();
+            winList.Add("Результаты игры:\n");
             foreach (var item in scoresTable)
             {
-                winList.Add(item.Key + " " + item.Value);
+                winList.Add(item.Key + "=" + item.Value + "\n");
             }
 
             dataSerializer.Serialize(memory, new SendingData { messageCommand = winners, scoreTableSend = winList });
@@ -427,8 +432,12 @@ namespace BlackJackServer
                             break;
 
                         case "onTable":
-                            GetStartCards();
-                            FirstPlayerChoose();
+                            if (!cardsGetted)
+                            {
+                                GetStartCards();
+                                FirstPlayerChoose();
+                                cardsGetted = true;
+                            }
                             break;
 
 

@@ -68,6 +68,8 @@ namespace GameTable
 
         public delegate void GameTableOpen();
         public static GameTableOpen HandlerGameTableOpen;
-      
+
+        public delegate void GameTableStatisticTB(string s);
+        public static GameTableStatisticTB HandlerGameTableStatisticTB;
     }
 }
