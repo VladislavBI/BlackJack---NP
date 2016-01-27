@@ -1,5 +1,4 @@
 c:\users\vlad\documents\visual studio 2013\Projects\Blackjack - NPexam\GameTable\bin\Debug\GameTable.exe.config
-C:\Users\vlad\documents\visual studio 2013\Projects\Blackjack - NPexam\GameTable\obj\Debug\GameTable.csprojResolveAssemblyReference.cache
 C:\Users\vlad\documents\visual studio 2013\Projects\Blackjack - NPexam\GameTable\obj\Debug\MainWindow.baml
 C:\Users\vlad\documents\visual studio 2013\Projects\Blackjack - NPexam\GameTable\obj\Debug\MainWindow.g.cs
 C:\Users\vlad\documents\visual studio 2013\Projects\Blackjack - NPexam\GameTable\obj\Debug\App.g.cs
@@ -17,3 +16,4 @@ C:\Users\vlad\documents\visual studio 2013\Projects\Blackjack - NPexam\GameTable
 C:\Users\vlad\documents\visual studio 2013\Projects\Blackjack - NPexam\GameTable\obj\Debug\GameTableWindow.g.cs
 C:\Users\vlad\documents\visual studio 2013\Projects\Blackjack - NPexam\GameTable\obj\Debug\OnlineCreateNewPlayer.baml
 C:\Users\vlad\documents\visual studio 2013\Projects\Blackjack - NPexam\GameTable\obj\Debug\OnlineCreateNewPlayer.g.cs
+C:\Users\vlad\Documents\Visual Studio 2013\Projects\Blackjack - NPexam\GameTable\obj\Debug\GameTable.csprojResolveAssemblyReference.cache

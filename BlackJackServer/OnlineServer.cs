@@ -167,6 +167,8 @@ namespace BlackJackServer
                 }  
             } 
         }
+
+        
         #region Сообщения игроку
         /// <summary>
         /// Сообщение о начале игры
@@ -174,6 +176,7 @@ namespace BlackJackServer
         /// <param name="endP"></param>
         void SendGameStart(IPEndPoint endP)
         {
+            Thread.Sleep(100);
             UdpClient ucl = new UdpClient();
             MemoryStream memory = new MemoryStream();
 
@@ -201,6 +204,7 @@ namespace BlackJackServer
         /// <param name="CARD"></param>
         private void SendNamesList(string message, IPEndPoint endP)
         {
+            Thread.Sleep(100);
             UdpClient ucl = new UdpClient();
             MemoryStream memory = new MemoryStream();
             List<string> usersNameList = new List<string>();
@@ -233,6 +237,7 @@ namespace BlackJackServer
         /// <param name="sCard"></param>
         private void SendCard(IPEndPoint endP, ShortCard sCard)
         {
+            Thread.Sleep(100);
             UdpClient ucl = new UdpClient();
             MemoryStream memory = new MemoryStream();
 
@@ -257,6 +262,7 @@ namespace BlackJackServer
         /// <param name="endP"></param>
         private void ServerStatusError()
         {
+            Thread.Sleep(100);
             UdpClient ucl = new UdpClient();
             MemoryStream memory = new MemoryStream();
             string message = "";
@@ -295,6 +301,7 @@ namespace BlackJackServer
         /// <param name="endP">Адресс следующего игрока</param>
         void SendYouPlay(IPEndPoint endP)
         {
+            Thread.Sleep(100);
             UdpClient ucl = new UdpClient();
             MemoryStream memory = new MemoryStream();
 
@@ -320,6 +327,7 @@ namespace BlackJackServer
         /// <param name="endP">Адрес получателя</param>
         void SendScores(IPEndPoint endP)
         {
+            Thread.Sleep(100);
             UdpClient ucl=new UdpClient();
             MemoryStream memory = new MemoryStream();
             string winners="winner@";
@@ -346,17 +354,21 @@ namespace BlackJackServer
                 MessageBox.Show(ex.Message);
             }
         }
-
+        /// <summary>
+        /// Прописывает победившего игрока
+        /// </summary>
+        /// <returns>Строка с победителем(-ями)</returns>
         string ChooseWinner()
         {
+            cardsGetted = false;
             string temp="";
             int max = -1;
             //нахождение максимального значения
-            foreach (var item in scoresTable.Values)
+            foreach (var item in scoresTable)
             {
-                if (item <= 21&&item>max)
+                if (item.Value <= 21&&item.Value>max)
                 {
-                    max = item;
+                    max = item.Value;
                 }
             }
 
@@ -368,11 +380,11 @@ namespace BlackJackServer
                 case -1:
                     return "Победителей нет!!!";
                 default:
-                    foreach (var item in scoresTable.Keys)
+                    foreach (var item in scoresTable)
                     {
-                        if (scoresTable[item] == max)
+                        if (item.Value == max)
                         {
-                            temp += string.Format("Игрок:{0} очки:{1\n", scoresTable[item], item);
+                            temp += string.Format("Игрок:{0} очки:{1}\n", item.Key, item.Value.ToString());
                         }
                     }
                     return temp;
@@ -380,6 +392,27 @@ namespace BlackJackServer
             
         }
 
+        void SendRestartGame(IPEndPoint endP)
+        {
+            Thread.Sleep(100);
+            UdpClient ucl = new UdpClient();
+            MemoryStream memory = new MemoryStream();
+            
+            dataSerializer.Serialize(memory, new SendingData() { messageCommand = "restart@" });
+            memory.Position = 0;
+            buffer = new byte[memory.Length];
+            memory.Read(buffer, 0, Convert.ToInt32(buffer.Length));
+
+            try
+            {
+                server.Send(buffer, buffer.Length, endP);
+                memory.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
 
         #endregion
 
@@ -411,7 +444,7 @@ namespace BlackJackServer
                     if (detailedMessageCommand[0] != "newPlayer")
                     {
                         foreach(var user in allUsers)
-                            if(user.userIpEndPoint==remoteEndPoint)
+                            if(user.userIpEndPoint.Port.ToString()==remoteEndPoint.Port.ToString())
                             {
                                 userName = user.userName;
                                 break;
@@ -446,7 +479,7 @@ namespace BlackJackServer
                             break;//взять еще карту
 
                         case "stop":
-                            StopCommandChoose(); 
+                            PlayerStopsCase(detailedMessageCommand); 
                             break;
 
                         default:
@@ -581,9 +614,13 @@ namespace BlackJackServer
                     {   
                         foreach(var user in allUsers)
                             SendScores(user.userIpEndPoint);
+                        Thread.Sleep(15000);
+                        RestartCommand();
                     }
                 }
             }
+            
+
         }
          /// <summary>
         /// Игрок уже сделал свой ход
@@ -621,7 +658,22 @@ namespace BlackJackServer
             }
         }
 
-      
+        void RestartCommand()
+        {
+           
+            if (!cardsGetted)
+            {
+            NewServerDeckCreate();
+            foreach (var item in allUsers)
+            {
+                SendRestartGame(item.userIpEndPoint);
+            }
+                scoresTable = new Dictionary<string, int>();
+                GetStartCards();
+                FirstPlayerChoose();
+                cardsGetted = true;
+            }
+        }
         #endregion
     }
 }

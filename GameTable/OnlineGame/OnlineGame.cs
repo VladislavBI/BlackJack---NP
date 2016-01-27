@@ -151,17 +151,12 @@ namespace GameTable.OnlineGame
                         case "winner":
                             AnnouncementOfWinners(detailedMessageCommand[1], _send.scoreTableSend);
                             break;
-                        /*case "newCard":
-                            Dispatcher.BeginInvoke(new Action(delegate
-                            {
-                                counter +=_send.card.Points;
-                                tbAccounte.Text = counter.ToString();
-                                AddCard(_send.card);
-                            }));
-
+                        case "restart":
+                            GameRestart();
                             break;
+                        
 
-                        default:break;*/
+                        default:break;
                     }
                 }
 
@@ -209,7 +204,7 @@ namespace GameTable.OnlineGame
             {
                 winner += str;
             }
-            winner=s;
+            winner+=s;
             
             DelegatesData.HandlerGameTableStatisticTB(winner);
         }
@@ -274,7 +269,9 @@ namespace GameTable.OnlineGame
 
         public override void GameRestart()
         {
-            throw new NotImplementedException();
+            myPlayer.cardsOnHand.NullifyDeck();
+            DelegatesData.HandlerGameTableStatisticTB("");
+            DelegatesData.HandlerCreateTableViewForCurrentPlayer();
         }
     }
 }

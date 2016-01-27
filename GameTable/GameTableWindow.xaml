@@ -16,7 +16,7 @@
         <TextBlock Name="TextBlockName"  Margin="10,10,10,0" TextWrapping="Wrap" Text="name" VerticalAlignment="Top" FontSize="15"/>
         <Image Name="ImagePlayersPhoto"  Margin="0,40,0,0" />
 
-        <TextBlock Name="TextBoxStatistic" TextWrapping="Wrap" Text=""  Grid.Column="1" TextAlignment="Center" FontSize="16"/>
+        <TextBlock Name="TextBoxStatistic" TextWrapping="Wrap" Text=""  Grid.Column="1" TextAlignment="Center" />
 
         <TextBlock Name="TextBlockScore"  Margin="10,10,10,0" TextWrapping="Wrap" Text="Score" VerticalAlignment="Top" Height="28"  Grid.Column="2" TextAlignment="Center" FontSize="16"/>
         <Button Name="ButtonRestart"  Content="Restart" HorizontalAlignment="Center" Margin="28,0,28,20" VerticalAlignment="Bottom" Width="109" Click="Button_Click" Grid.Column="2" Height="38" FontSize="16"/>

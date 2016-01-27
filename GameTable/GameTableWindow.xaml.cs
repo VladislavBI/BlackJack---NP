@@ -27,7 +27,7 @@ namespace GameTable
             if (game.GetType() == typeof(OnlineGame.OnlineGame))
             {
                 ButtonsAvailableChange(false);
-
+                ButtonRestart.IsEnabled = false;
             }
                 
             DelegateCreation();
@@ -134,6 +134,7 @@ namespace GameTable
 
         private void ButtonPass_Click(object sender, RoutedEventArgs e)
         {
+            ButtonsAvailableChange(false);
             game.GetCurrentHumanPlayer().PlayerStopsTurn();
         }
 
