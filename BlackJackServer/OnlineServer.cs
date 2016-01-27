@@ -88,18 +88,11 @@ namespace BlackJackServer
         List<ConnectedUser> allUsers = new List<ConnectedUser>();
         UnicodeEncoding encodingMessage = new UnicodeEncoding();
         XmlSerializer dataSerializer = new XmlSerializer(typeof(SendingData));
-
-        Dictionary<string, int> scoresTable = new Dictionary<string, int>();
-
-        /// <summary>
-        /// Колода сервера
-        /// </summary>
-        GeneralDeck serverDeck;
-        
         /// <summary>
         /// Текущее состояние сервера
         /// </summary>
         ServerStatus sStatus = ServerStatus.Stopped;
+        Dictionary<string, int> scoresTable = new Dictionary<string, int>();
 
         #region Открытие сервера
         /// <summary>
@@ -117,7 +110,7 @@ namespace BlackJackServer
         {
             try
             {
-                localPort = 7777;
+                localPort = 7775;
                 server = new UdpClient(localPort);
                 remoteEndPoint = null;
 
@@ -138,6 +131,10 @@ namespace BlackJackServer
         }
         #endregion
 
+        /// <summary>
+        /// Колода сервера
+        /// </summary>
+        GeneralDeck serverDeck;
         public void NewServerDeckCreate()
         {
             serverDeck = new GeneralDeck();
@@ -147,23 +144,10 @@ namespace BlackJackServer
         /// </summary>
         void StartGame()
         {
-            
             foreach (var item in allUsers)
             {
                 SendGameStart(item.userIpEndPoint);
-            }
-            GetStartCards();
-            try
-            {
-                SendYouPlay(allUsers[0].userIpEndPoint);
-            }
-            catch (Exception)
-            {
-                MessageBox.Show("Нет активных игроков!");
-                StatusChangeEffect(ServerStatus.Stopped);
-
-            }
-           
+            } 
         }
 
         /// <summary>
@@ -189,7 +173,7 @@ namespace BlackJackServer
             UdpClient ucl = new UdpClient();
             MemoryStream memory = new MemoryStream();
 
-            dataSerializer.Serialize(memory, new SendingData() { messageCommand = "strartGame@"});
+            dataSerializer.Serialize(memory, new SendingData() { messageCommand = "startGame@"});
             memory.Position = 0;
             buffer = new byte[memory.Length];
             memory.Read(buffer, 0, Convert.ToInt32(memory.Length));
@@ -372,7 +356,7 @@ namespace BlackJackServer
             }
 
             //Формирование строки со списком победителей
-            temp = "\tПобедители:\nКоличетсов очков:" + max.ToString() + "\n";
+            temp = "\tПобедители:\nКоличество очков:" + max.ToString() + "\n";
 
             switch (max)
             {
@@ -394,39 +378,7 @@ namespace BlackJackServer
 
         #endregion
 
-        /*  private void SendReplaseUsers(SendingData _send, XmlSerializer _dataSerializer, MemoryStream _stream, List<string> users)
-          {
-              UdpClient client = new UdpClient();
-              SendData sd = new SendData() { name = "SERVER", AllUsers = users, messageCommand = "replaseusers" };
-              _dataSerializer.Serialize(_stream, sd);
-              _stream.Position = 0;
-              byte[] _bytes = new byte[_stream.Length];
-              _stream.Read(_bytes, 0, Convert.ToInt32(_stream.Length));
-              //MessageBox.Show(_bytes.Length + " " + _stream.Length);
-
-              try
-              {
-                  foreach (IPEndPoint ep in allUsers)
-                  {
-                      //Thread.Sleep(500);
-                      //client.Send(_bytes, _bytes.Length, ep);
-                      _server.Send(_bytes, _bytes.Length, ep);
-                  }
-
-              }
-              catch (SocketException se)
-              {
-                  if (se.ErrorCode != 1004) // игнорирование ошибки WSACancelBlockingCall (библиотека WINSOCK.DLL) - не верные аргументы
-                  {
-                      MessageBox.Show("SERVER SENDER PIOPLE \n" + se.Message);
-                  }
-              }
-              catch (Exception exs)
-              {
-                  MessageBox.Show(exs.Message);
-              }
-
-          }*/
+        
 
         /// <summary>
         /// Прослушивание входящих сообщений
@@ -443,9 +395,12 @@ namespace BlackJackServer
                 while (true)
                 {
                     buffer = server.Receive(ref remoteEndPoint);
-                    messageCommand=encodingMessage.GetString(buffer);
+                    MemoryStream stream = new MemoryStream();
+                    stream.Write(buffer, 0, buffer.Length);
+                    stream.Position = 0;
+                    send = (SendingData)dataSerializer.Deserialize(stream);
                    
-                    string[] detailedMessageCommand=messageCommand.Split('@');
+                    string[] detailedMessageCommand=send.messageCommand.Split('@');
                     
                     //Сохраняет имя пользователя
                     if (detailedMessageCommand[0] != "newPlayer")
@@ -470,6 +425,12 @@ namespace BlackJackServer
                         case "disconnect": //отключение пользователя
                             PlayerDisconnectedCase(detailedMessageCommand);
                             break;
+
+                        case "onTable":
+                            GetStartCards();
+                            FirstPlayerChoose();
+                            break;
+
 
                         case "hit":
                             HitCase();
@@ -504,24 +465,37 @@ namespace BlackJackServer
 
         #region Listner cases
         /// <summary>
-        /// Добаввление нового игрока
+        /// Добавление нового игрока
         /// </summary>
         /// <param name="detailedMessageCommand"></param>
         private void NewPlayerCase(string[] detailedMessageCommand)
         {
+            
             if (sStatus == ServerStatus.Started &&
                                 allUsers.Exists(x => x.userIpEndPoint.Port == remoteEndPoint.Port) == false)
             {
-
-                {
-                    ReplaceCommandMultiCast();
-                }
+                allUsers.Add(new ConnectedUser(detailedMessageCommand[1], remoteEndPoint));
+                
+                ReplaceCommandMultiCast();
             }
             else
             {
                 ServerStatusError();
             }
     }
+        void FirstPlayerChoose()
+        {
+            try
+            {
+                SendYouPlay(allUsers[0].userIpEndPoint);
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Нет активных игроков!");
+                StatusChangeEffect(ServerStatus.Stopped);
+
+            }
+        }
         /// <summary>
         /// Игрок отключился
         /// </summary>
@@ -549,8 +523,6 @@ namespace BlackJackServer
                 }
             }
         }
-
-       
         /// <summary>
         /// Игрок просит карту
         /// </summary>
@@ -636,9 +608,11 @@ namespace BlackJackServer
             foreach (var user in allUsers)
             {
                 Thread.Sleep(200);
-                SendNamesList("replaseusers", user.userIpEndPoint);
+                SendNamesList("replace@", user.userIpEndPoint);
             }
         }
+
+      
         #endregion
     }
 }

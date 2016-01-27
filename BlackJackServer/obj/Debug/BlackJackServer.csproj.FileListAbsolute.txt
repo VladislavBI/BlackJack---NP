@@ -1,0 +1,13 @@
+C:\Users\vlad\documents\visual studio 2013\Projects\Blackjack - NPexam\BlackJackServer\bin\Debug\BlackJackServer.exe.config
+C:\Users\vlad\documents\visual studio 2013\Projects\Blackjack - NPexam\BlackJackServer\obj\Debug\MainWindow.baml
+C:\Users\vlad\documents\visual studio 2013\Projects\Blackjack - NPexam\BlackJackServer\obj\Debug\MainWindow.g.cs
+C:\Users\vlad\documents\visual studio 2013\Projects\Blackjack - NPexam\BlackJackServer\obj\Debug\App.g.cs
+C:\Users\vlad\documents\visual studio 2013\Projects\Blackjack - NPexam\BlackJackServer\obj\Debug\BlackJackServer_MarkupCompile.cache
+C:\Users\vlad\documents\visual studio 2013\Projects\Blackjack - NPexam\BlackJackServer\obj\Debug\BlackJackServer.g.resources
+C:\Users\vlad\documents\visual studio 2013\Projects\Blackjack - NPexam\BlackJackServer\obj\Debug\BlackJackServer.Properties.Resources.resources
+C:\Users\vlad\documents\visual studio 2013\Projects\Blackjack - NPexam\BlackJackServer\obj\Debug\BlackJackServer.csproj.GenerateResource.Cache
+C:\Users\vlad\documents\visual studio 2013\Projects\Blackjack - NPexam\BlackJackServer\bin\Debug\BlackJackServer.exe
+C:\Users\vlad\documents\visual studio 2013\Projects\Blackjack - NPexam\BlackJackServer\bin\Debug\BlackJackServer.pdb
+C:\Users\vlad\documents\visual studio 2013\Projects\Blackjack - NPexam\BlackJackServer\obj\Debug\BlackJackServer.exe
+C:\Users\vlad\documents\visual studio 2013\Projects\Blackjack - NPexam\BlackJackServer\obj\Debug\BlackJackServer.pdb
+C:\Users\vlad\documents\visual studio 2013\Projects\Blackjack - NPexam\BlackJackServer\obj\Debug\BlackJackServer.csprojResolveAssemblyReference.cache
