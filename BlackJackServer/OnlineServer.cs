@@ -114,7 +114,7 @@ namespace BlackJackServer
         {
             try
             {
-                localPort = 7775;
+                localPort = Convert.ToInt32(ComboBoxServer.SelectedValue);
                 server = new UdpClient(localPort);
                 remoteEndPoint = null;
 
@@ -494,7 +494,7 @@ namespace BlackJackServer
             }
             catch (SocketException se)
             {
-                if (se.ErrorCode != 1004) // игнорирование ошибки WSACancelBlockingCall (библиотека WINSOCK.DLL) - не верные аргументы
+                if (se.ErrorCode != 10004) // игнорирование ошибки WSACancelBlockingCall (библиотека WINSOCK.DLL) - не верные аргументы
                 {
                     MessageBox.Show("SERVER\n" + se.Message);
                 }
@@ -517,7 +517,13 @@ namespace BlackJackServer
                                 allUsers.Exists(x => x.userIpEndPoint.Port == remoteEndPoint.Port) == false)
             {
                 allUsers.Add(new ConnectedUser(detailedMessageCommand[1], remoteEndPoint));
-                
+                //Оповещение о присоединении
+                Dispatcher.BeginInvoke(new Action(delegate
+                {
+                    TextBoxGameStatistic.Text += DateTime.Now.ToShortTimeString() + ":" + "Игрок " + detailedMessageCommand[1] + " присоединился к игре\n";
+
+                }));
+                //все игроке узнают о новичке
                 ReplaceCommandMultiCast();
             }
             else
@@ -544,6 +550,8 @@ namespace BlackJackServer
         /// <param name="detailedMessageCommand"></param>
         private void PlayerDisconnectedCase(string[] detailedMessageCommand)
         {
+            RemovingUser();
+            
 
             ReplaceCommandMultiCast();
             if(!PlayerAlreadyPlayed())
@@ -572,7 +580,7 @@ namespace BlackJackServer
         {
             Dispatcher.BeginInvoke(new Action(delegate
             {
-                TextBoxGameStatistic.Text = DateTime.Now.ToShortTimeString() + ": " + userName + " receive cards \r\n";
+                TextBoxGameStatistic.Text += DateTime.Now.ToShortTimeString() + ": " + userName + " взял карту \n";
             }));
             SendCard(remoteEndPoint, serverDeck.GetShortCard());
         }

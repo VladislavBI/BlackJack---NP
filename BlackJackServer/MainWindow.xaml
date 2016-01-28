@@ -1,19 +1,24 @@
 ﻿<Window x:Class="BlackJackServer.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="MainWindow" Height="400.156" Width="579.517">
+        Title="MainWindow" Height="459.156" Width="692.517">
     <Grid>
 
         <ListBox x:Name="ListBoxPlayers" HorizontalAlignment="Left" Height="176" Margin="21,52,0,0" VerticalAlignment="Top" Width="133"/>
-        <Button Name="ButtonStartGame" Content="Начать игру" HorizontalAlignment="Left" Margin="441,292,0,0" VerticalAlignment="Top" Width="114" Click="ButtonStartGame_Click" IsEnabled="False"/>
-        <Button Name="ButtonStopGame" Content="Закрыть сервер" HorizontalAlignment="Left" Margin="441,330,0,0" VerticalAlignment="Top" Width="114" IsEnabled="False" Click="ButtonStopGame_Click"/>
+        <Button Name="ButtonStartGame" Content="Начать игру" HorizontalAlignment="Left" Margin="556,357,0,0" VerticalAlignment="Top" Width="114" Click="ButtonStartGame_Click" IsEnabled="False"/>
+        <Button Name="ButtonStopGame" Content="Закрыть сервер" HorizontalAlignment="Left" Margin="556,392,0,0" VerticalAlignment="Top" Width="114" IsEnabled="False" Click="ButtonStopGame_Click"/>
         <Label Content="Комната ожидания" HorizontalAlignment="Left" Margin="201,0,0,0" VerticalAlignment="Top" Width="172"/>
         <Label Content="Активные игроки" HorizontalAlignment="Left" Margin="30,26,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.447,0.692"/>
-        <TextBox x:Name="TextBoxGameStatistic" HorizontalAlignment="Left" Height="176" Margin="178,52,0,0" VerticalAlignment="Top" Width="244" IsReadOnly="True"/>
+        <TextBox x:Name="TextBoxGameStatistic" HorizontalAlignment="Left" Height="176" Margin="178,52,0,0" VerticalAlignment="Top" Width="353" IsReadOnly="True"/>
         <Label Content="Информация" HorizontalAlignment="Left" Margin="271,26,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.447,0.692"/>
-        <TextBox Name="TextBoxInGameChat"  HorizontalAlignment="Left" Height="99" Margin="21,251,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="401" IsReadOnly="True"/>
+        <TextBox Name="TextBoxInGameChat"  HorizontalAlignment="Left" Height="161" Margin="21,251,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="510" IsReadOnly="True"/>
         <Label Content="Игровой чат" HorizontalAlignment="Left" Margin="257,225,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.447,0.692"/>
-        <Button x:Name="ButtonStartServer" Content="Запустить сервер" HorizontalAlignment="Left" Margin="441,210,0,0" VerticalAlignment="Top" Width="114" Click="ButtonStartServer_Click"/>
+        <Button x:Name="ButtonStartServer" Content="Запустить сервер" HorizontalAlignment="Left" Margin="556,213,0,0" VerticalAlignment="Top" Width="114" Click="ButtonStartServer_Click"/>
+        <Label Content="Сервер" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="556,26,0,0" VerticalAlignment="Top" Width="114"/>
+        <TextBlock Name="TextBlockIP" HorizontalAlignment="Left" Margin="588,136,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Height="18" Width="82"/>
+        <Label Content="Порт" HorizontalAlignment="Left" Margin="536,83,0,0" VerticalAlignment="Top"/>
+        <Label Content="IP" HorizontalAlignment="Left" Margin="536,131,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.95,0.5"/>
+        <ComboBox Name="ComboBoxServer"  HorizontalAlignment="Left" Margin="588,83,0,0" VerticalAlignment="Top" Width="82"/>
 
     </Grid>
 </Window>
