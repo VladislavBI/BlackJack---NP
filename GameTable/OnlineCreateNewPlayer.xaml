@@ -10,7 +10,7 @@
 
         <Button Content="Выбор изображения" HorizontalAlignment="Left" Margin="20,201,0,0" VerticalAlignment="Top" Width="124"/>
         <TextBlock HorizontalAlignment="Left" Margin="359,23,0,0" TextWrapping="Wrap" Text="My Port" VerticalAlignment="Top"/>
-        <TextBox x:Name="TextBoxMyPort"  HorizontalAlignment="Left" Height="23" Margin="336,41,0,0" TextWrapping="Wrap" Text="7776" VerticalAlignment="Top" Width="120" Loaded="TextBoxMyPort_Loaded"/>
+        <TextBlock x:Name="TextBoxMyPort"  HorizontalAlignment="Left" Height="23" Margin="336,41,0,0" TextWrapping="Wrap" Text="7776" VerticalAlignment="Top" Width="120" Loaded="TextBoxMyPort_Loaded"/>
         <TextBlock HorizontalAlignment="Left" Margin="359,69,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="84"><Run Text="Remote Port"/></TextBlock>
         <TextBox x:Name="TextBoxRemotePort" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="7775" VerticalAlignment="Top" Width="120" Margin="336,96,0,0"/>
         <TextBlock HorizontalAlignment="Left" Margin="64,121,0,0" TextWrapping="Wrap" VerticalAlignment="Top"/>

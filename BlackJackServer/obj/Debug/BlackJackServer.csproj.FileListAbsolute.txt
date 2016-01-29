@@ -10,7 +10,6 @@ C:\Users\vlad\documents\visual studio 2013\Projects\Blackjack - NPexam\BlackJack
 C:\Users\vlad\documents\visual studio 2013\Projects\Blackjack - NPexam\BlackJackServer\bin\Debug\BlackJackServer.pdb
 C:\Users\vlad\documents\visual studio 2013\Projects\Blackjack - NPexam\BlackJackServer\obj\Debug\BlackJackServer.exe
 C:\Users\vlad\documents\visual studio 2013\Projects\Blackjack - NPexam\BlackJackServer\obj\Debug\BlackJackServer.pdb
-C:\Users\vlad\documents\visual studio 2013\Projects\Blackjack - NPexam\BlackJackServer\obj\Debug\BlackJackServer.csprojResolveAssemblyReference.cache
 C:\Users\vlad\Documents\BlackJackServer\bin\Debug\BlackJackServer.exe.config
 C:\Users\vlad\Documents\BlackJackServer\obj\Debug\BlackJackServer.exe
 C:\Users\vlad\Documents\BlackJackServer\obj\Debug\BlackJackServer.pdb

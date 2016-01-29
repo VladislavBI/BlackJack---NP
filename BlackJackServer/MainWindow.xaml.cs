@@ -41,7 +41,15 @@ namespace BlackJackServer
             ComboBoxServer.SelectedIndex=0;
 
             IPHostEntry ipHost = Dns.GetHostEntry(Dns.GetHostName());
-            TextBlockIP.Text = ipHost.AddressList[2].ToString();
+            TextBlockIP.Text = ipHost.AddressList[1].ToString();
+            try
+            {
+            TextBlockIP2.Text = ipHost.AddressList[2].ToString();
+            }
+            catch
+            {
+                TextBlockIP2.Text = "Не доступен";
+            }      
         }
         /// <summary>
         /// Очистка Окна со списком имен 

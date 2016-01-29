@@ -19,6 +19,8 @@
         <Label Content="Порт" HorizontalAlignment="Left" Margin="536,83,0,0" VerticalAlignment="Top"/>
         <Label Content="IP" HorizontalAlignment="Left" Margin="536,131,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.95,0.5"/>
         <ComboBox Name="ComboBoxServer"  HorizontalAlignment="Left" Margin="588,83,0,0" VerticalAlignment="Top" Width="82"/>
+        <Label Content="IP2" HorizontalAlignment="Left" Margin="536,173,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.95,0.5"/>
+        <TextBlock x:Name="TextBlockIP2" HorizontalAlignment="Left" Margin="588,173,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Height="18" Width="82"/>
 
     </Grid>
 </Window>

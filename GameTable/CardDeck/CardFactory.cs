@@ -6,6 +6,11 @@ using System.Threading.Tasks;
 
 namespace GameTable.CardDeck
 {
+    public class CardImage
+    {
+
+    }
+
     /// <summary>
     /// Класс карты для отправки
     /// </summary>
