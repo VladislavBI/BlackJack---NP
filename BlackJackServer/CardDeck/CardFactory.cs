@@ -48,6 +48,8 @@ namespace BlackJackServer.CardDeck
         /// масть карты
         /// </summary>
         public CardSuit thisCardSuit { get; protected set; }
+
+
         
 #region Возвращение очков карт
 

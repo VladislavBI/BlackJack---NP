@@ -1,15 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace GameTable.CardDeck
 {
-    public class CardImage
-    {
-
-    }
+    
 
     /// <summary>
     /// Класс карты для отправки
@@ -86,6 +84,7 @@ namespace GameTable.CardDeck
             thisCardHierarchy=hierarchy;
             thisCardSuit=suit;
 	    }
+
 
         public override string ToString()
         {

@@ -29,7 +29,8 @@ namespace GameTable
                 ButtonsAvailableChange(false);
                 ButtonRestart.IsEnabled = false;
             }
-                
+            
+
             DelegateCreation();
             this.game = game;
             game.GameStart(botsQuantity);
@@ -81,22 +82,20 @@ namespace GameTable
             StackplayersCard.Children.Clear();
             foreach (CardDeck.CardFactory card in curPlayer.cardsOnHand.gameDeck)
             {
-                Grid cardGrid = new Grid();
-                
-                cardGrid.Margin = new Thickness(5);
-                cardGrid.Background = new SolidColorBrush(Colors.Yellow);
-
-
-                TextBlock cardBlock = new TextBlock();
-                cardBlock.Text = card.ToString();
-                cardBlock.FontSize = 16;
-                cardBlock.VerticalAlignment = VerticalAlignment.Center;
-                cardBlock.Background = new SolidColorBrush(Colors.Yellow);
-
-                StackplayersCard.Children.Add(cardGrid);
-                cardGrid.Children.Add(cardBlock);
-
+                StackplayersCard.Children.Add(GetImagePicture(card));
             }
+
+            
+        }
+        /// <summary>
+        /// Получение картинки карты
+        /// </summary>
+        /// <param name="card">сама карта</param>
+        /// <returns>картинка карты</returns>
+        System.Windows.Controls.Image GetImagePicture(CardDeck.CardFactory card)
+        {
+            CardDeck.ImageGraphic image = new CardDeck.ImageGraphic();
+            return image.GetCardImage(card);
         }
         /// <summary>
         /// Изменение состояния игровых кнопок
